@@ -1,0 +1,6 @@
+@API.web_h13p_HostAddress = http://localhost:5055
+
+GET {{API.web_h13p_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
