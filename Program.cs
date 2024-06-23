@@ -1,4 +1,5 @@
 using API.web_h13p.Infatructure.ExtentionServices;
+using API.web_h13p.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,5 +31,5 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-
-app.Run();
+app.UseMiddleware<JwtMiddleware>();
+app.Run( );

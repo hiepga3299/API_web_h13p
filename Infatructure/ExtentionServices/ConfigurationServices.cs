@@ -35,7 +35,7 @@ public static class ConfigurationServices
         {
             x.TokenValidationParameters = new TokenValidationParameters
             {
-                ValidateIssuerSigningKey = true,
+                ValidateIssuerSigningKey = false,
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:SecretKey"])),
                 ValidateIssuer = false,
                 ValidateAudience = false,
