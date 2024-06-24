@@ -28,7 +28,7 @@ public class JwtMiddleware
                         var user = jwtToken.Claims.First(x => x.Type == "name").Value;
                         if (!string.IsNullOrEmpty(user))
                         {
-                            context.Items["User"] = user;
+                            context.Request.Headers.Add("User", user);
                         }
                     }
                 }

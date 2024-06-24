@@ -38,13 +38,6 @@ public class AuthenticationController : ControllerBase
         {
             return BadRequest(result.Message);
         }
-        Response.Cookies.Append("Token", result.Message.ToString(), new CookieOptions
-        {
-            HttpOnly = true,
-            Secure = true,
-            SameSite = SameSiteMode.Strict,
-            Expires = DateTime.UtcNow.AddMinutes(10)
-        });
-        return StatusCode(200, result.Message);
+        return Ok(result.Data);
     }
 }

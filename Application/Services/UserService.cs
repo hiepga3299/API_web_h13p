@@ -32,7 +32,7 @@ public class UserService : IUserService
             return new UserResponeDTO
             {
                 isSuccess = false,
-                Message = new List<string> { "Dữ liệu không hợp lệ" }
+                Message = "Dữ liệu không hợp lệ" 
             };
         }
         var user = _mapper.Map<User>(userRegisterRegister);
@@ -43,13 +43,13 @@ public class UserService : IUserService
             return new UserResponeDTO
             {
                 isSuccess = false,
-                Message = error
+                Message = error.ToString()
             };
         }
         return new UserResponeDTO
         {
             isSuccess = true,
-            Message = new List<string> { "Đăng ký thành công" }
+            Message = "Đăng ký thành công"
         };
     }
 
@@ -58,14 +58,14 @@ public class UserService : IUserService
         if (userLogin is null)
         {
             return new UserResponeDTO
-                 { isSuccess = false, Message = new List<string> { "Dang nhap khong thanh cong" } } ;
+                 { isSuccess = false, Message =  "Dang nhap khong thanh cong" } ;
         }
 
         var user = await _userManager.FindByNameAsync(userLogin.Username);
         if (user is null)
         {
             return new UserResponeDTO
-                { isSuccess = false, Message = new List<string> { "Tai khoan khong ton tai" } } ; 
+                { isSuccess = false, Message = "Tai khoan khong ton tai"  } ; 
         }
         var result = await _signInManager.PasswordSignInAsync(user, userLogin.Password, false, false);
         if (!result.Succeeded)
@@ -80,7 +80,32 @@ public class UserService : IUserService
         return new UserResponeDTO
         {
             isSuccess = true,
-            Message = token
+            Message = "Thành công!",
+            Data =
+            new {
+                Token = token,
+                Username = user.UserName
+            }
+        };
+    }
+    
+    public async Task<UserResponeDTO> GetUserAsync(string username)
+    {
+        var user = await _userManager.FindByNameAsync(username);
+        if (user is null)
+        {
+            return new UserResponeDTO
+            {
+                isSuccess = false,
+                Message = "Tài khoản không tồn tại"
+            };
+        }
+        return new UserResponeDTO
+        {
+            isSuccess = true,
+            Message = "Thành Công" ,
+            Data = user.UserName
+            
         };
     }
 
